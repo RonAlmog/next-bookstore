@@ -4,8 +4,19 @@ import Head from "next/head";
 export default function Home() {
   useEffect(() => {
     if (typeof (document !== undefined)) {
-      require("bootstrap/dist/js/bootstrap");
+      let bootstrap = require("bootstrap/dist/js/bootstrap");
+
+      // find all toasts
+      let toastElList = [].slice.call(document.querySelectorAll(".toast"));
+      let toastList = toastElList.map(function (toastEl) {
+        return new bootstrap.Toast(toastEl);
+      });
+      // show each toast explicitly
+      toastList.forEach(function (element, index) {
+        element.show();
+      });
     }
+    // Run useEffect only once
   }, []);
 
   return (
